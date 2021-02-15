@@ -10,6 +10,7 @@ psycopg2 = "^2.8.6"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
+pytest-mock = "^3.5.1"
 
 [tool.poetry.scripts]
 wait_for_postgres = "wait_for_utils.run:cli"

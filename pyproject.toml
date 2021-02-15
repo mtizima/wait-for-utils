@@ -11,6 +11,9 @@ psycopg2 = "^2.8.6"
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
 
+[tool.poetry.scripts]
+wait_for_postgres = "wait_for_utils.run:cli"
+
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"

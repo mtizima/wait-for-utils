@@ -36,4 +36,7 @@ class PGReady(BaseReady):
                     get_interval_unit(config.check_interval)
                 )
                 time.sleep(config.check_interval)
+        logger.error("Can't connect to PostgreSQL within %d %s :(",
+                     config.check_interval,
+                     get_interval_unit(config.check_interval))
         return False

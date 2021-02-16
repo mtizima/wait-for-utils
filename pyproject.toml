@@ -5,12 +5,14 @@ description = ""
 authors = ["Dmitry <mtizima@gmail.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.7"
 psycopg2 = "^2.8.6"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
 pytest-mock = "^3.5.1"
+pytest-cov = "^2.11.1"
+black = "^20.8b1"
 
 [tool.poetry.scripts]
 wait_for_postgres = "wait_for_utils.run:cli"

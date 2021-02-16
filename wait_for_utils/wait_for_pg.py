@@ -14,7 +14,6 @@ logger.addHandler(logging.StreamHandler())
 
 
 class PGReady(BaseReady):
-
     def is_ready(self, config: DBConfig) -> bool:
         while time.time() - self.start_time < config.check_timeout:
             try:
@@ -23,7 +22,7 @@ class PGReady(BaseReady):
                     password=config.password,
                     host=config.host,
                     port=config.port,
-                    database=config.database
+                    database=config.database,
                 )
                 logger.info("PostgreSQL is ready!")
                 conn.close()
@@ -33,10 +32,12 @@ class PGReady(BaseReady):
                     "PostgreSQL is not ready yet. :( "
                     "Waiting %d %s for the next check...",
                     config.check_interval,
-                    get_interval_unit(config.check_interval)
+                    get_interval_unit(config.check_interval),
                 )
                 time.sleep(config.check_interval)
-        logger.error("Can't connect to PostgreSQL within %d %s :(",
-                     config.check_interval,
-                     get_interval_unit(config.check_interval))
+        logger.error(
+            "Can't connect to PostgreSQL within %d %s :(",
+            config.check_interval,
+            get_interval_unit(config.check_interval),
+        )
         return False

@@ -7,7 +7,7 @@ jobs:
     strategy:
       matrix:
         python-version: [3.7, 3.8]
-        os: [ubuntu-18.04]
+        os: [ubuntu-18.04, macos-latest]
     runs-on: ${{ matrix.os }}
     env:
       ACTIONS_ALLOW_UNSECURE_COMMANDS: true
@@ -32,7 +32,7 @@ jobs:
         id: cached-poetry-dependencies
         uses: actions/cache@v2
         with:
-          path: ~/.cache
+          path: .venv
           key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
 
       - name: Install dependencies

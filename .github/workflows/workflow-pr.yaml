@@ -44,3 +44,11 @@ jobs:
 
       - name: Test with pytest
         run: poetry run pytest --cov tests/
+
+      - name: Test publish
+        env:
+          PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
+        run: |
+          poetry config repositories.testpypi https://test.pypi.org/legacy/
+          poetry config pypi-token.testpypi $PYPI_TOKEN
+          poetry publish --build --repository testpypi

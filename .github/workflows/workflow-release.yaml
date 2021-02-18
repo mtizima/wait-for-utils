@@ -1,4 +1,4 @@
-name: Python Pull Request Workflow
+name: Python Main Release
 on:
   release:
     types:

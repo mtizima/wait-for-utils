@@ -1,26 +1,16 @@
 name: Python Pull Request Workflow
-on: pull_request
+on:
+  release:
+    types:
+      - created
 jobs:
-
-  test:
-    name: Test
-    strategy:
-      matrix:
-        python-version: [3.7, 3.8]
-        os: [ubuntu-18.04]
-    runs-on: ${{ matrix.os }}
-    env:
-      ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+  publish:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
         with:
-          python-version: ${{ matrix.python-version }}
-
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@master
-        with:
-          python-version: ${{ matrix.python-version }}
+          python-version: "3.7"
 
       - name: Install Poetry
         uses: snok/install-poetry@v1.1.1
@@ -44,3 +34,11 @@ jobs:
 
       - name: Test with pytest
         run: poetry run pytest --cov tests/
+
+      - name: Publish
+        env:
+          PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
+        run: |
+          poetry config pypi-token.pypi $PYPI_TOKEN
+          poetry publish --build
+

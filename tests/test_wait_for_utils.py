@@ -6,7 +6,7 @@ from wait_for_utils import __version__, config, wait_for_pg
 
 
 def test_version():
-    assert __version__ == "0.1.0"
+    assert __version__ == "0.1.0-alpha.2"
 
 
 @mock.patch("psycopg2.connect")

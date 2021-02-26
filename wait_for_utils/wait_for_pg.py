@@ -8,7 +8,7 @@ from wait_for_utils.base import BaseReady
 from wait_for_utils.config import DBConfig
 from wait_for_utils.utils import get_interval_unit
 
-logger = logging.getLogger()
+logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 logger.addHandler(logging.StreamHandler())
 
@@ -29,8 +29,11 @@ class PGReady(BaseReady):
                 return True
             except psycopg2.OperationalError:
                 logger.info(
-                    "PostgreSQL is not ready yet. :( "
+                    "Connection details: %s:%d/%s. PostgreSQL is not ready yet. :( "
                     "Waiting %d %s for the next check...",
+                    config.host,
+                    config.port,
+                    config.database,
                     config.check_interval,
                     get_interval_unit(config.check_interval),
                 )

@@ -27,7 +27,7 @@ def test_wait_for_postgres_no_connect(monkeypatch):
     assert result.exit_code == 1
 
 
-@mock.patch("psycopg2.connect")
-def test_wait_for_postgres_mock_connect(mock_connect):
+# @mock.patch("psycopg2.connect")
+def test_wait_for_postgres_mock_connect(mock_db_conn):
     result = CliRunner().invoke(wait_for_postgres)
     assert result.exit_code == 0

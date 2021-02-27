@@ -15,7 +15,7 @@ logger.addHandler(logging.StreamHandler())
 
 class PGReady(BaseReady):
     def is_ready(self, config: DBConfig) -> bool:
-        while time.time() - self.start_time < config.check_timeout:
+        while time.time() - self.start_time < config.timeout:
             try:
                 conn = psycopg2.connect(
                     user=config.user,
@@ -29,18 +29,18 @@ class PGReady(BaseReady):
                 return True
             except psycopg2.OperationalError:
                 logger.info(
-                    "Connection details: %s:%d/%s. PostgreSQL is not ready yet. :( "
-                    "Waiting %d %s for the next check...",
+                    "Connection details: %s:%s/%s. PostgreSQL is not ready yet. :( "
+                    "Waiting %s %s for the next check...",
                     config.host,
                     config.port,
                     config.database,
-                    config.check_interval,
-                    get_interval_unit(config.check_interval),
+                    config.interval,
+                    get_interval_unit(config.interval),
                 )
-                time.sleep(config.check_interval)
+                time.sleep(config.interval)
         logger.error(
             "Can't connect to PostgreSQL within %d %s :(",
-            config.check_interval,
-            get_interval_unit(config.check_interval),
+            config.interval,
+            get_interval_unit(config.interval),
         )
-        return False
+        raise SystemExit(1)

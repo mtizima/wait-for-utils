@@ -5,6 +5,8 @@ from dataclasses import dataclass
 
 @dataclass
 class _BaseConfig:
+    """Base config."""
+
     timeout: int
     interval: int
 

@@ -18,6 +18,15 @@ class PGReady(BaseReady):
     def _connect(
         self, user: str, password: str, host: str, port: int, database: str
     ) -> Any:
+        """Create connect.
+
+        :param user:
+        :param password:
+        :param host:
+        :param port:
+        :param database:
+        :return:
+        """
         conn = psycopg2.connect(
             user=user,
             password=password,
@@ -28,6 +37,11 @@ class PGReady(BaseReady):
         return conn
 
     def is_ready(self, config: DBConfig) -> bool:
+        """Check the connection is ready.
+
+        :param config:
+        :return:
+        """
         while time.time() - self.start_time < config.timeout:
             try:
                 conn = self._connect(

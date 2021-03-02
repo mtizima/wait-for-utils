@@ -3,6 +3,11 @@ from typing import Dict, Any
 
 
 def get_interval_unit(interval: int) -> str:
+    """Get interval unit.
+
+    :param interval:
+    :return:
+    """
     return "seconds" if interval > 1 else "seconds"
 
 

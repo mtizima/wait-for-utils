@@ -1,8 +1,27 @@
 [tool.poetry]
 name = "wait-for-utils"
 version = "0.1.0-alpha.9"
-description = ""
+description = "Wait for PostgreSQL to be available before startup docker container."
 authors = ["Dmitry <mtizima@gmail.com>"]
+
+licence = "MIT"
+
+readme = "README.md"
+
+homepage = "https://github.com/mtizima/wait-for-utils"
+documentation = "https://github.com/mtizima/wait-for-utils/blob/main/README.md"
+
+keywords = ["docker", "building"]
+
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: POSIX",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Topic :: Software Development :: Build Tools",
+    "Topic :: Utilities"
+]
 
 [tool.poetry.dependencies]
 python = "^3.7"

@@ -1,6 +1,7 @@
 """Wait for postgres."""
 import logging
 import time
+from typing import Any
 
 import psycopg2
 
@@ -14,10 +15,22 @@ logger.addHandler(logging.StreamHandler())
 
 
 class PGReady(BaseReady):
+    def _connect(
+        self, user: str, password: str, host: str, port: int, database: str
+    ) -> Any:
+        conn = psycopg2.connect(
+            user=user,
+            password=password,
+            host=host,
+            port=port,
+            database=database,
+        )
+        return conn
+
     def is_ready(self, config: DBConfig) -> bool:
         while time.time() - self.start_time < config.timeout:
             try:
-                conn = psycopg2.connect(
+                conn = self._connect(
                     user=config.user,
                     password=config.password,
                     host=config.host,
@@ -43,4 +56,4 @@ class PGReady(BaseReady):
             config.interval,
             get_interval_unit(config.interval),
         )
-        raise SystemExit(1)
+        return False

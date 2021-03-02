@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "wait-for-utils"
-version = "0.1.0-alpha.9"
+version = "0.1.0"
 description = "Wait for PostgreSQL to be available before startup docker container."
 authors = ["Dmitry <mtizima@gmail.com>"]
 

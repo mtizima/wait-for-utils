@@ -6,7 +6,7 @@ from wait_for_utils import __version__, config, wait_for_pg
 
 
 def test_version():
-    assert __version__ == "0.1.0-alpha.9"
+    assert __version__ == "0.1.0"
 
 
 @mock.patch("wait_for_utils.wait_for_pg.PGReady._connect")

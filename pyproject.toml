@@ -4,7 +4,7 @@ version = "0.1.0-alpha.9"
 description = "Wait for PostgreSQL to be available before startup docker container."
 authors = ["Dmitry <mtizima@gmail.com>"]
 
-licence = "MIT"
+license = "MIT"
 
 readme = "README.md"
 

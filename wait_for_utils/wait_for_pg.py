@@ -1,6 +1,7 @@
 """Wait for postgres."""
 import logging
 import time
+from typing import Any
 
 import psycopg2
 
@@ -8,16 +9,42 @@ from wait_for_utils.base import BaseReady
 from wait_for_utils.config import DBConfig
 from wait_for_utils.utils import get_interval_unit
 
-logger = logging.getLogger()
+logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 logger.addHandler(logging.StreamHandler())
 
 
 class PGReady(BaseReady):
+    def _connect(
+        self, user: str, password: str, host: str, port: int, database: str
+    ) -> Any:
+        """Create connect.
+
+        :param user:
+        :param password:
+        :param host:
+        :param port:
+        :param database:
+        :return:
+        """
+        conn = psycopg2.connect(
+            user=user,
+            password=password,
+            host=host,
+            port=port,
+            database=database,
+        )
+        return conn
+
     def is_ready(self, config: DBConfig) -> bool:
-        while time.time() - self.start_time < config.check_timeout:
+        """Check the connection is ready.
+
+        :param config:
+        :return:
+        """
+        while time.time() - self.start_time < config.timeout:
             try:
-                conn = psycopg2.connect(
+                conn = self._connect(
                     user=config.user,
                     password=config.password,
                     host=config.host,
@@ -29,15 +56,18 @@ class PGReady(BaseReady):
                 return True
             except psycopg2.OperationalError:
                 logger.info(
-                    "PostgreSQL is not ready yet. :( "
-                    "Waiting %d %s for the next check...",
-                    config.check_interval,
-                    get_interval_unit(config.check_interval),
+                    "Connection details: %s:%s/%s. PostgreSQL is not ready yet. :( "
+                    "Waiting %s %s for the next check...",
+                    config.host,
+                    config.port,
+                    config.database,
+                    config.interval,
+                    get_interval_unit(config.interval),
                 )
-                time.sleep(config.check_interval)
+                time.sleep(config.interval)
         logger.error(
             "Can't connect to PostgreSQL within %d %s :(",
-            config.check_interval,
-            get_interval_unit(config.check_interval),
+            config.interval,
+            get_interval_unit(config.interval),
         )
         return False

@@ -11,7 +11,7 @@ pip install wait-for-utils
 ## Usage
 
 
-####PostgreSQL
+#### PostgreSQL
 Example:
 ```bash
 wait-for-postgres -

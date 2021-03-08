@@ -1,6 +1,5 @@
 # wait-for-utils
 ![Python Main Release](https://github.com/mtizima/wait-for-utils/workflows/Python%20Main%20Release/badge.svg)
-[![Updates](https://pyup.io/repos/github/mtizima/wait-for-utils/shield.svg)](https://pyup.io/repos/github/mtizima/wait-for-utils)
 
 Wait for service(s) to be available before startup docker container.
 
